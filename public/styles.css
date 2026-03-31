@@ -81,7 +81,7 @@ button {
     max-height: 450px;
     /* altura máxima */
     white-space: pre-wrap;
-     margin-top: 3px;
+    margin-top: 3px;
 }
 
 .resultado-codigo {
@@ -97,27 +97,32 @@ button {
 
 .container-resultado {
     display: flex;
+    justify-content: space-between;
+    /* Espaço entre as caixas */
+    align-items: flex-start;
     gap: 20px;
-    width: 100%;
-    max-width: 900px;
-    margin-top: 20px;
+    /* Espaçamento entre as colunas */
 }
 
 .box {
-    flex: 1;
+    flex: 0 0 48%;
+    /* Ocupa 48% para ter espaço entre elas */
     display: flex;
     flex-direction: column;
+    align-items: center;
+}
+
+.titulo-secao {
+    width: 100%;
+    text-align: center;
+    margin-bottom: 20px;
+    margin-top: 10px;
 }
 
 .box h3 {
     margin-bottom: 5px;
     color: #fafafa;
     text-align: center;
-}
-
-.titulo-secao {
-    margin-top: 20px;
-    color: #fafafa;
 }
 
 /* Anim Tds */
@@ -151,5 +156,5 @@ button {
 }
 
 .bloco-codigo:hover {
-    transform: translateY(-5px) ;
+    transform: translateY(-5px);
 }

@@ -1,45 +1,11 @@
-/* 
-    Variável - Pedacinho de memória
-    que eu posso guardar o que eu quiser
-
-    Função - Pedacinho de código QUE só EXECUTA
-    Quando é chamado
-
-    Algoritmo - Receita do Bolo
-    Lógica de Programação -  Fazer o bolo
-
-    // Algoritmo do nosso sistema
-    // Lógica de programação
-
-    [x] Saber quem é o botão
-    [x] Saber quando o botão foi clicado
-    [x] Saber quem é o textarea  
-    [x] Pegar o que tem dentro dele
-    [x] Enviar para a IA
-    [x] Pegar a resposta da IA e colocar na tela 
-    [x] Estilizar a resposta     
-
-    // Ir no HTML e pegar o botão
-    // HTML = document (documento)
-    // Selecionar (querySelector)
-    // Quem ? Botão
-    // Apelido para o botão - classes(class) = .
-    fetch - ferramenta do JS para se comunicar com o servidor
-*/
-
-// Descobri que é o botao
-let botao = document.querySelector(".botao-gerar")
-let endereco = "http://localhost:3000/gerar"
-
-// Criei a funcao que será chamada quando clicar 
-// no botao
+let botao = document.querySelector(".botao-gerar");
+let endereco = "http://localhost:3000/gerar";
 
 async function gerarCodigo() {
 
-    let textoUsuario = document.querySelector(".caixa-texto").value
-    let blocoCodigo = document.querySelector(".bloco-codigo")
-    let resultadoCodigo = document.querySelector(".resultado-codigo")
-let endereco = "http://localhost:3000/gerar"
+    let textoUsuario = document.querySelector(".caixa-texto").value;
+    let blocoCodigo = document.querySelector(".bloco-codigo");
+    let resultadoCodigo = document.querySelector(".resultado-codigo");
 
     let resposta = await fetch(endereco, {
         method: "POST",
@@ -58,24 +24,25 @@ let endereco = "http://localhost:3000/gerar"
                 }
             ]
         })
-    })
+    });
 
-    let dados = await resposta.json()
-    let resultado = dados.choices[0].message.content
+    console.log(resposta.status);
 
-    blocoCodigo.textContent = resultado
-    resultadoCodigo.srcdoc = resultado
+    let dados = await resposta.json();
 
+    console.log(dados);
+
+    if (dados.choices && dados.choices.length > 0) {
+        let resultado = dados.choices[0].message.content;
+
+        blocoCodigo.textContent = resultado;
+        resultadoCodigo.srcdoc = resultado;
+
+    } else {
+        blocoCodigo.textContent = "Não foi possível gerar o código. Tente novamente.";
+    }
 }
 
-// ficar de olho no botao, quando clicado chamar o gerarCodigo
-botao.addEventListener("click", gerarCodigo)
-
+botao.addEventListener("click", gerarCodigo);
 
 console.log("clicou no botão");
-
-// vizinho curioso (addEventListener)
-// adicionar ouvinte de eventos
-// Evento = clique, digitei...
-
-

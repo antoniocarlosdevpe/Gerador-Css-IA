@@ -1,9 +1,14 @@
-require('dotenv').config();
-// No topo do arquivo: require('dotenv').config();
-const apiKey = process.env.GROQ_API_KEY;
-const express = require('express');
-const cors = require('cors');
-const path = require('path');
+import dotenv from 'dotenv';
+dotenv.config();
+
+import express from 'express';
+import cors from 'cors';
+import path from 'path';
+import { fileURLToPath } from 'url';
+import { dirname } from 'path';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
 
 const app = express();
 
@@ -13,7 +18,10 @@ app.use(express.json());
 // 👉 SERVIR O SITE
 app.use(express.static(path.join(__dirname, 'public')));
 
-// rota IA
+// Pega a API Key corretamente
+const apiKey = process.env.GROQ_API_KEY;
+console.log(apiKey);
+
 app.post('/gerar', async (req, res) => {
     const fetch = (...args) => import('node-fetch').then(({default: fetch}) => fetch(...args));
 
@@ -21,7 +29,7 @@ app.post('/gerar', async (req, res) => {
         method: "POST",
         headers: {
             "Content-Type": "application/json",
-            "Authorization": `Bearer ${process.env.API_KEY}`
+            "Authorization": `Bearer ${apiKey}` // Usando a chave carregada corretamente
         },
         body: JSON.stringify({
             model: "llama-3.3-70b-versatile",
